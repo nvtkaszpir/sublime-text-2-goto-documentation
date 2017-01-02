@@ -111,24 +111,25 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
 
 
             # match the result agains the regex
-            reg = re.compile(doc['failTest'])
-            if reg.match(stdout):
-                # use the fallback url
-                if 'url' in doc:
-                    fullUrl = doc['url']%{'query': query, 'scope': scope}
-                    webbrowser.open(fullUrl)
-                else:
-                    self.show_status("No docs available for the current word !")
+            if 'failTest' in doc:
+                reg = re.compile(doc['failTest'])
+                if reg.match(stdout):
+                    # use the fallback url
+                    if 'url' in doc:
+                        fullUrl = doc['url']%{'query': query, 'scope': scope}
+                        webbrowser.open(fullUrl)
+                    else:
+                        self.show_status("No docs available for the current word !")
 
+                return
 
-            else:
-                # regex to change something before it's sent to the panel
-                if 'changeMatch' in doc and 'changeWith' in doc:
-                    stdout = re.sub(doc['changeMatch'], doc['changeWith'], stdout)
+            # regex to change something before it's sent to the panel
+            if 'changeMatch' in doc and 'changeWith' in doc:
+                stdout = re.sub(doc['changeMatch'], doc['changeWith'], stdout)
 
-                # we have a valid result from console
-                # so we place it in the output panel
-                self.panel(stdout)
+            # we have a valid result from console
+            # so we place it in the output panel
+            self.panel(stdout)
 
         else:
             if not doc:
