@@ -17,13 +17,13 @@
         "python": {
             // the command to be executed
             "command": ["python", "-m", "pydoc", "%(query)s"],
-            // a regex to determine if this was an invalid response from the console
+            // a regex to determine if this was an invalid response from the console. optional.
             "failTest": ".*no Python documentation found for.*",
-            // regex to select something from the valid response
+            // regex to select something from the valid response. optional.
             "changeMatch": "(Related help topics)",
-            // regex to replace the matched result
+            // regex to replace the matched result. optional.
             "changeWith": "-------\n\\1",
-            // fallback url: if failTest returns true this will be used
+            // fallback url: if failTest returns true this will be used. optional.
             "url": "http://docs.python.org/3/search.html?q=%(query)s"
         }
     },
