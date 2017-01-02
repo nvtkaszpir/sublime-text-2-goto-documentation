@@ -50,7 +50,11 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
     """
     Search the selected text or the current word
     """
-    def run(self, edit):
+    def run(self, edit, query=None, scope=None, index=None):
+        if query is not None and scope is not None:
+            self.open_doc(query, scope, index)
+            return
+
         # grab the word or the selection from the view
         for region in self.view.sel():
             location = False
@@ -62,10 +66,10 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
                 location = region
 
             if location and not location.empty():
-                q = self.view.substr(location)
+                query = self.view.substr(location)
                 scope = self.view.scope_name(location.begin()).rpartition('.')[2].strip()
 
-                self.open_doc(q, scope)
+                self.open_doc(query, scope)
 
     def open_doc(self, query, scope, index=None):
 
