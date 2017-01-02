@@ -72,7 +72,20 @@ GotoDocumentation allows you to edit the url that opens by editing the settings.
             "changeWith": "-------\n\\1",
             // fallback url: if failTest returns true this will be used. optional.
             "url": "http://docs.python.org/3/search.html?q=%(query)s"
-        }
+        },
+
+        // we can also have multiple docs for a single scope. in that case we have to use
+        // an array of JSON objects like below. "title" is required.
+        "php": [
+            {
+                "title": "PHP Manual",
+                "url": "http://php.net/manual-lookup.php?pattern=%(query)s"
+            },
+            {
+                "title": "PHP CLI Helper",
+                "command": ["php", "--rf", "%(query)s"]
+            }
+        ]
     },
     // if we have no docs for the current scope
     // we will try using the fallback one,
@@ -82,6 +95,10 @@ GotoDocumentation allows you to edit the url that opens by editing the settings.
 
 ```
 The change replace is done with the [`re.sub`](https://docs.python.org/2/library/re.html#re.sub) method 
+
+If you define multiple docs for a scope, a quick panel will be
+populated with the defined options and user will be able to pick one of
+them.
 
 ## How to get the scope
 To get the scope for a specific place open your sublime console with `` ctrl + ` `` and paste in this command

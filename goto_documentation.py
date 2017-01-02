@@ -67,7 +67,7 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
 
                 self.open_doc(q, scope)
 
-    def open_doc(self, query, scope):
+    def open_doc(self, query, scope, index=None):
 
         settings = sublime.load_settings("goto_documentation.sublime-settings")
 
@@ -93,11 +93,14 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
         # build the url and open it
         doc = docs[tscope]
 
+        if type(doc) is list and index is not None:
+            doc = doc[index]
+
         # if it is a dict we must have:
         #   - a command to run
         #   - a regex to check against
         #   - an optional fallback url
-        if type(doc) is dict:
+        if type(doc) is dict and 'command' in doc:
             # build the command
             command = [x%{'query': query, 'scope': scope} for x in doc['command']]
 
@@ -131,10 +134,20 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
             # so we place it in the output panel
             self.panel(stdout)
 
+        elif type(doc) is list:
+            def on_done(index):
+                if index >= 0:
+                    self.open_doc(query, scope, index)
+
+            self.view.window().show_quick_panel([item['title'] for item in doc], on_done)
+
         else:
             if not doc:
                 self.show_status("This scope is disabled !")
                 return
+
+            if type(doc) is dict:
+                doc = doc['url']
 
             # we have an url so we build and open it
             fullUrl = doc%{'query': query, 'scope': scope}

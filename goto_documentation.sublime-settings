@@ -26,6 +26,19 @@
             // fallback url: if failTest returns true this will be used. optional.
             "url": "http://docs.python.org/3/search.html?q=%(query)s"
         }
+
+        // we can also have multiple docs for a single scope. in that case we have to use
+        // an array of JSON objects like below. "title" is required.
+        // "php": [
+        //     {
+        //         "title": "PHP Manual",
+        //         "url": "http://php.net/manual-lookup.php?pattern=%(query)s"
+        //     },
+        //     {
+        //         "title": "PHP CLI Helper",
+        //         "command": ["php", "--rf", "%(query)s"]
+        //     }
+        // ]
     },
     // if we have no docs for the current scope
     // we will try using the fallback one,
