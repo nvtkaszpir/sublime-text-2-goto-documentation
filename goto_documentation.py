@@ -116,6 +116,8 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
 
             stdout = '\n'.join(stdout)
 
+            if 'display_output' in doc and doc['display_output'] is False:
+                return
 
             # match the result agains the regex
             if 'failTest' in doc:

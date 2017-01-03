@@ -17,6 +17,10 @@
         "python": {
             // the command to be executed
             "command": ["python", "-m", "pydoc", "%(query)s"],
+            // prints command output. optional. true by default. if your command starts
+            // a standalone program and you are not interested in the output, you may
+            // want to set this to false.
+            "display_output": true,
             // a regex to determine if this was an invalid response from the console. optional.
             "failTest": ".*no Python documentation found for.*",
             // regex to select something from the valid response. optional.
