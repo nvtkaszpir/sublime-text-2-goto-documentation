@@ -10,6 +10,8 @@
         //  - %(query)s the selected text/word
         //  - %(scope)s the current scope
        "css": "http://devdocs.io/#q=%(scope)s+%(query)s",
+        // google search + I'm feeling lucky...
+       "terraform": "http://www.google.com/search?hl=en&btnI=1&oq=%(query)s+site%%3Aterraform.io&q=%(query)s+site%%3Aterraform.io",
 
         // we can also have an object to
         // run a command for finding docs
