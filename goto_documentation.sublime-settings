@@ -10,6 +10,8 @@
         //  - %(query)s the selected text/word
         //  - %(scope)s the current scope
        "css": "http://devdocs.io/#q=%(scope)s+%(query)s",
+       // ansible docs as google first find with site:docs.ansible.com
+       "ansible": "http://www.google.com/search?hl=en&btnI=1&oq=%(query)s+site%%3Adocs.ansible.com&q=%(query)s+site%%3Adocs.ansible.com",
 
         // we can also have an object to
         // run a command for finding docs
